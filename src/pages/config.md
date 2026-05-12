@@ -7,12 +7,12 @@ description: Configuring jetlint with .jetlintrc.json.
 # Configuration
 
 jetlint reads its configuration from `.jetlintrc.json` at the project root.
-Unknown keys are an error, not a warning &mdash; misspelled options exit with
-code `2` instead of silently doing nothing.
+Misspelled options exit with code `2` rather than being silently ignored, so
+typos can't quietly disable a rule.
 
 ## Minimum config
 
-The default config is empty &mdash; the 5 MVP rules run at `error` severity, the
+The default config is empty. The 5 MVP rules run at `error` severity; the
 other 56 are `off`. To opt in to a rule, list it by name:
 
 ```json
@@ -76,5 +76,5 @@ Pass `--project ./tsconfig.json` to point at a specific config file.
 ## Editor and CI configs
 
 The same `.jetlintrc.json` is used everywhere. For CI-specific overrides
-(e.g. promoting `warn` to `error`), launch jetlint with `--strict` &mdash; it
+(e.g. promoting `warn` to `error`), launch jetlint with `--strict`. That
 treats every `warn` as `error` for that run.

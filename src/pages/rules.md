@@ -13,7 +13,7 @@ test fixtures.
 > **Aggregate: 6193 / 6193 fixtures pass (100%).**
 
 The **5 MVP rules** marked below default to `error`. The remaining 56 default
-to `off` — opt in via [`.jetlintrc.json`](/config/).
+to `off`; opt in via [`.jetlintrc.json`](/config/).
 
 ## MVP rules (default: error)
 

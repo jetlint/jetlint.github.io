@@ -63,7 +63,7 @@ jetlint --project ./tsconfig.json
 ```
 
 By default, jetlint applies the **5 MVP rules** at `error` severity. The other
-**56 rules** ship `off` — see [Config](/config/) to opt in.
+**56 rules** ship `off`; see [Config](/config/) to opt in.
 
 ## Run as a daemon
 
@@ -81,7 +81,7 @@ attach without paying the program-load cost on every request.
 ## Editor integration
 
 Editor packages are not yet published. The daemon's JSON-RPC schema is stable
-enough to script against for early integration work — see the issue tracker
+enough to script against for early integration work; see the issue tracker
 for design notes and the in-progress LSP bridge.
 
 ## CI

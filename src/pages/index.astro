@@ -8,8 +8,8 @@ import Base from '../layouts/Base.astro';
     <h1>Type-aware TypeScript&nbsp;7 linting.<br />Without the wait.</h1>
     <p class="hero-lead">
       A fast, type-aware linter for the TypeScript&nbsp;7 native (Go) toolchain. Drop-in
-      compatible with typescript-eslint &mdash; the rules you already configure,
-      reporting in a fraction of the time.
+      compatible with typescript-eslint: the rules you already configure, reporting in
+      a fraction of the time.
     </p>
     <div class="hero-cta">
       <a class="btn btn-primary" href="/install/">Get started</a>
@@ -30,17 +30,18 @@ import Base from '../layouts/Base.astro';
     <h2>Type-aware linting at native speed.</h2>
     <div class="features">
       <div class="feature">
-        <h3>Native checker</h3>
+        <h3>Interactive speed</h3>
         <p>
-          Built on the TypeScript&nbsp;7 native compiler. The checker is real &mdash; no AST
-          heuristics standing in for type queries. If TypeScript can answer it, jetlint can act on it.
+          Re-lints reuse a warm TypeScript program. The first lint pays for the load;
+          every lint after that returns in milliseconds, fast enough to sit inside an
+          edit-feedback loop.
         </p>
       </div>
       <div class="feature">
-        <h3>Long-lived daemon</h3>
+        <h3>Native checker</h3>
         <p>
-          A sidecar process keeps the program and checker warm between runs. The cost of
-          loading TypeScript is paid once; re-lints come back in milliseconds.
+          Built on the TypeScript&nbsp;7 native compiler. Real type queries, no AST
+          heuristics. If TypeScript can answer it, jetlint can act on it.
         </p>
       </div>
       <div class="feature">
@@ -54,7 +55,7 @@ import Base from '../layouts/Base.astro';
         <h3>Predictable config</h3>
         <p>
           A single <code>.jetlintrc.json</code>. Unknown option keys exit with a structured
-          error instead of being silently ignored &mdash; your config is enforced, not suggested.
+          error rather than being silently ignored, so misconfigurations fail loudly.
         </p>
       </div>
       <div class="feature">
@@ -81,10 +82,10 @@ import Base from '../layouts/Base.astro';
       From <strong>v0.1.0</strong> onward, jetlint ships prebuilt binaries via npm
       under the <code>@jetlint/cli</code> wrapper. Until then, install from source with Go.
     </p>
-    <pre><code>{`# v0.1.0 and later — npm (also works with pnpm, yarn, bun)
+    <pre><code>{`# v0.1.0 and later (also works with pnpm, yarn, bun)
 npm install --save-dev @jetlint/cli
 
-# while v0.1.0 is in progress — from source (Go 1.26+)
+# while v0.1.0 is in progress, build from source (Go 1.26+)
 go install github.com/jetlint/jetlint/cmd/jetlint@latest
 
 # run on a project
@@ -101,71 +102,70 @@ npx jetlint --project ./tsconfig.json`}</code></pre>
     <p>
       AI coding tools work best when the loop around them is deterministic and fast. Types,
       lint, and tests are how a model knows whether the change it just made is good. The
-      more of that signal you can produce in milliseconds &mdash; not seconds &mdash; the
-      tighter the loop gets and the better the outputs.
+      more of that signal you can produce in milliseconds rather than seconds, the tighter
+      the loop gets and the better the outputs.
     </p>
     <p>
       Type-aware lint is the slow link in that chain. typescript-eslint with type
       information is the right tool for the job, but on large codebases it&apos;s measured
       in seconds-to-minutes, which is too slow to sit inside an inner loop. With the
       TypeScript&nbsp;7 native toolchain landing, the checker itself is finally fast enough
-      that a thin linter on top can return type-aware diagnostics at interactive speed
-      &mdash; especially when a daemon keeps the program warm between runs.
+      that a thin linter on top can return type-aware diagnostics at interactive speed,
+      especially when a daemon keeps the program warm between runs.
     </p>
 
     <h2 style="margin-top:2rem">Standing on other peoples&apos; shoulders.</h2>
     <p>
       jetlint is a thin layer over decisions made by much larger projects. The interesting
-      problems &mdash; what the rules should mean, how the checker should answer type
-      queries, how a linter should be structured &mdash; have already been solved well
-      elsewhere. jetlint&apos;s contribution is wiring them together for the TS&nbsp;7
-      native checker with a daemon in front.
+      problems (what the rules should mean, how the checker should answer type queries,
+      how a linter should be structured) have already been solved well elsewhere.
+      jetlint&apos;s contribution is wiring them together for the TS&nbsp;7 native checker
+      with a daemon in front.
     </p>
     <ul>
       <li>
-        <a href="https://typescript-eslint.io/"><strong>typescript-eslint</strong></a>
-        &mdash; the rule semantics, the test fixtures jetlint validates against, and the
+        <a href="https://typescript-eslint.io/"><strong>typescript-eslint</strong></a>:
+        the rule semantics, the test fixtures jetlint validates against, and the
         configuration shape users already know. Every rule jetlint ships is a port of
         a typescript-eslint rule and is verified byte-for-byte against the upstream
         fixtures.
       </li>
       <li>
-        <a href="https://github.com/microsoft/typescript-go"><strong>microsoft/typescript-go</strong></a>
-        &mdash; the native TypeScript&nbsp;7 compiler. jetlint embeds it and asks it the
-        same type questions <code>tsc</code> does. None of this would be possible without
-        the work to make the checker available as a Go library.
+        <a href="https://github.com/microsoft/typescript-go"><strong>microsoft/typescript-go</strong></a>:
+        the native TypeScript&nbsp;7 compiler. jetlint embeds it and asks it the same
+        type questions <code>tsc</code> does. None of this would be possible without the
+        work to make the checker available as a Go library.
       </li>
       <li>
-        <a href="https://github.com/oxc-project/tsgolint"><strong>oxc / tsgolint</strong></a>
-        &mdash; prior art for type-aware linting against the native checker. tsgolint
-        proved the approach was viable and shaped a lot of jetlint&apos;s thinking about
-        how to integrate with the Go checker.
+        <a href="https://github.com/oxc-project/tsgolint"><strong>oxc / tsgolint</strong></a>:
+        prior art for type-aware linting against the native checker. tsgolint proved the
+        approach was viable and shaped a lot of jetlint&apos;s thinking about how to
+        integrate with the Go checker.
       </li>
       <li>
         <a href="https://eslint.org/"><strong>ESLint</strong></a>,
         <a href="https://biomejs.dev/"><strong>Biome</strong></a>, and
-        <a href="https://oxc.rs/"><strong>Oxlint</strong></a>
-        &mdash; the broader lint ecosystem that defines what good diagnostics, good config
+        <a href="https://oxc.rs/"><strong>Oxlint</strong></a>:
+        the broader lint ecosystem that defines what good diagnostics, good config
         ergonomics, and good editor integration look like.
       </li>
     </ul>
 
     <h2 style="margin-top:2rem">How jetlint differs from tsgolint.</h2>
     <p>
-      tsgolint and jetlint share the same foundation &mdash; the TypeScript&nbsp;7 Go
-      checker &mdash; and the same broad idea, so the obvious question is why both exist.
-      The short answer: different goals, and a personal one.
+      tsgolint and jetlint share the same foundation, the TypeScript&nbsp;7 Go checker,
+      and the same broad idea, so the obvious question is why both exist. The short
+      answer: different goals, plus a personal one.
     </p>
     <p>
       The project goal is byte-for-byte compatibility with typescript-eslint&apos;s
       published fixtures across as many type-aware rules as possible, so existing
-      configurations move over unchanged. That&apos;s a different target than tsgolint&apos;s
-      curated subset, and neither target is wrong &mdash; they&apos;re answering different
-      questions.
+      configurations move over unchanged. tsgolint targets a curated subset instead,
+      which serves a different audience.
     </p>
     <p>
-      The personal goal is more honest: I wanted to learn what writing a linter against a
-      real compiler actually feels like, even working at arm&apos;s length through AI
+      There&apos;s also a personal one. I wanted to learn what writing a linter against
+      a real compiler actually feels like, even working at arm&apos;s length through AI
       tooling. tsgolint already existed and worked; jetlint exists in part because I
       wanted to understand the problem by building one.
     </p>
@@ -173,7 +173,7 @@ npx jetlint --project ./tsconfig.json`}</code></pre>
 
   <section class="section">
     <div class="section-title">Status</div>
-    <h2>Pre-1.0. Stable enough to try, not stable enough to depend on.</h2>
+    <h2>Pre-1.0. Diagnostics work today; the API may still change.</h2>
     <p>
       jetlint is currently a research-grade port of typescript-eslint&apos;s type-aware
       rules against the TypeScript&nbsp;7 native checker. The diagnostics are real; the API
