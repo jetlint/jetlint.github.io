@@ -78,17 +78,20 @@ import Base from '../layouts/Base.astro';
     <div class="section-title">Install</div>
     <h2>Drop it into your project.</h2>
     <p>
-      jetlint is in active development and ships from source. Once installed, point it at
-      your <code>tsconfig.json</code>:
+      From <strong>v0.1.0</strong> onward, jetlint ships prebuilt binaries via npm
+      under the <code>@jetlint/cli</code> wrapper. Until then, install from source with Go.
     </p>
-    <pre><code>{`# build from source (requires Go 1.26+)
+    <pre><code>{`# v0.1.0 and later — npm (also works with pnpm, yarn, bun)
+npm install --save-dev @jetlint/cli
+
+# while v0.1.0 is in progress — from source (Go 1.26+)
 go install github.com/jetlint/jetlint/cmd/jetlint@latest
 
 # run on a project
-jetlint --project ./tsconfig.json`}</code></pre>
+npx jetlint --project ./tsconfig.json`}</code></pre>
     <p>
-      See the <a href="/install/">install guide</a> for editor integration and CI setup, or
-      the <a href="/rules/">rules reference</a> for the full rule list.
+      See the <a href="/install/">install guide</a> for pnpm/yarn/bun commands, editor integration,
+      and CI setup, or the <a href="/rules/">rules reference</a> for the full rule list.
     </p>
   </section>
 

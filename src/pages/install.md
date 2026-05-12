@@ -6,15 +6,48 @@ description: How to install and run jetlint against a TypeScript 7 project.
 
 # Install
 
-jetlint is in active development and currently ships from source. A pre-built
-binary distribution will land closer to the 1.0 release.
+jetlint is in active development. From **v0.1.0** onward, prebuilt binaries
+ship via npm; until then, install from source with Go.
 
-## Requirements
+## Install via npm (v0.1.0 and later)
+
+The wrapper package is `@jetlint/cli`. It pulls in the right prebuilt binary
+for your platform automatically via `optionalDependencies`.
+
+```bash
+# npm
+npm install --save-dev @jetlint/cli
+
+# pnpm
+pnpm add -D @jetlint/cli
+
+# yarn
+yarn add --dev @jetlint/cli
+
+# bun
+bun add -d @jetlint/cli
+```
+
+The installed CLI is `jetlint`, regardless of package manager:
+
+```bash
+npx jetlint --project ./tsconfig.json
+```
+
+Supported platforms: linux x64, linux arm64, macOS x64, macOS arm64,
+Windows x64. On anything else, fall back to installing from source.
+
+## Install from source
+
+This is the current path while v0.1.0 is in progress, and the fallback for
+platforms without a prebuilt binary.
+
+### Requirements
 
 - Go **1.26 or newer**
 - A TypeScript project with a `tsconfig.json` (TypeScript 7 / typescript-go targeted, but TS 5/6 sources are accepted)
 
-## From source
+### From source
 
 ```bash
 go install github.com/jetlint/jetlint/cmd/jetlint@latest
