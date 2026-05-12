@@ -93,6 +93,82 @@ jetlint --project ./tsconfig.json`}</code></pre>
   </section>
 
   <section class="section">
+    <div class="section-title">Background</div>
+    <h2>Why jetlint exists.</h2>
+    <p>
+      AI coding tools work best when the loop around them is deterministic and fast. Types,
+      lint, and tests are how a model knows whether the change it just made is good. The
+      more of that signal you can produce in milliseconds &mdash; not seconds &mdash; the
+      tighter the loop gets and the better the outputs.
+    </p>
+    <p>
+      Type-aware lint is the slow link in that chain. typescript-eslint with type
+      information is the right tool for the job, but on large codebases it&apos;s measured
+      in seconds-to-minutes, which is too slow to sit inside an inner loop. With the
+      TypeScript&nbsp;7 native toolchain landing, the checker itself is finally fast enough
+      that a thin linter on top can return type-aware diagnostics at interactive speed
+      &mdash; especially when a daemon keeps the program warm between runs.
+    </p>
+
+    <h2 style="margin-top:2rem">Standing on other peoples&apos; shoulders.</h2>
+    <p>
+      jetlint is a thin layer over decisions made by much larger projects. The interesting
+      problems &mdash; what the rules should mean, how the checker should answer type
+      queries, how a linter should be structured &mdash; have already been solved well
+      elsewhere. jetlint&apos;s contribution is wiring them together for the TS&nbsp;7
+      native checker with a daemon in front.
+    </p>
+    <ul>
+      <li>
+        <a href="https://typescript-eslint.io/"><strong>typescript-eslint</strong></a>
+        &mdash; the rule semantics, the test fixtures jetlint validates against, and the
+        configuration shape users already know. Every rule jetlint ships is a port of
+        a typescript-eslint rule and is verified byte-for-byte against the upstream
+        fixtures.
+      </li>
+      <li>
+        <a href="https://github.com/microsoft/typescript-go"><strong>microsoft/typescript-go</strong></a>
+        &mdash; the native TypeScript&nbsp;7 compiler. jetlint embeds it and asks it the
+        same type questions <code>tsc</code> does. None of this would be possible without
+        the work to make the checker available as a Go library.
+      </li>
+      <li>
+        <a href="https://github.com/oxc-project/tsgolint"><strong>oxc / tsgolint</strong></a>
+        &mdash; prior art for type-aware linting against the native checker. tsgolint
+        proved the approach was viable and shaped a lot of jetlint&apos;s thinking about
+        how to integrate with the Go checker.
+      </li>
+      <li>
+        <a href="https://eslint.org/"><strong>ESLint</strong></a>,
+        <a href="https://biomejs.dev/"><strong>Biome</strong></a>, and
+        <a href="https://oxc.rs/"><strong>Oxlint</strong></a>
+        &mdash; the broader lint ecosystem that defines what good diagnostics, good config
+        ergonomics, and good editor integration look like.
+      </li>
+    </ul>
+
+    <h2 style="margin-top:2rem">How jetlint differs from tsgolint.</h2>
+    <p>
+      tsgolint and jetlint share the same foundation &mdash; the TypeScript&nbsp;7 Go
+      checker &mdash; and the same broad idea, so the obvious question is why both exist.
+      The short answer: different goals, and a personal one.
+    </p>
+    <p>
+      The project goal is byte-for-byte compatibility with typescript-eslint&apos;s
+      published fixtures across as many type-aware rules as possible, so existing
+      configurations move over unchanged. That&apos;s a different target than tsgolint&apos;s
+      curated subset, and neither target is wrong &mdash; they&apos;re answering different
+      questions.
+    </p>
+    <p>
+      The personal goal is more honest: I wanted to learn what writing a linter against a
+      real compiler actually feels like, even working at arm&apos;s length through AI
+      tooling. tsgolint already existed and worked; jetlint exists in part because I
+      wanted to understand the problem by building one.
+    </p>
+  </section>
+
+  <section class="section">
     <div class="section-title">Status</div>
     <h2>Pre-1.0. Stable enough to try, not stable enough to depend on.</h2>
     <p>
