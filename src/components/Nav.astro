@@ -1,0 +1,21 @@
+---
+const { pathname } = Astro.url;
+function active(href: string) {
+  if (href === '/') return pathname === '/' ? 'active' : '';
+  return pathname.startsWith(href) ? 'active' : '';
+}
+---
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="/" class="brand">
+      <span class="brand-mark">▸</span>jetlint
+    </a>
+    <nav class="nav-links">
+      <a href="/install/" class={active('/install')}>Install</a>
+      <a href="/rules/" class={active('/rules')}>Rules</a>
+      <a href="/config/" class={active('/config')}>Config</a>
+    </nav>
+    <a class="nav-github" href="https://github.com/jetlint">GitHub →</a>
+  </div>
+</header>

@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="jetlint">
+  <section class="hero">
+    <div class="hero-eyebrow">jetlint · pre-1.0</div>
+    <h1>Type-aware TypeScript&nbsp;7 linting.<br />Without the wait.</h1>
+    <p class="hero-lead">
+      A fast, type-aware linter for the TypeScript&nbsp;7 native (Go) toolchain. Drop-in
+      compatible with typescript-eslint &mdash; the rules you already configure,
+      reporting in a fraction of the time.
+    </p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="/install/">Get started</a>
+      <a class="btn btn-ghost" href="https://github.com/jetlint">View on GitHub</a>
+    </div>
+  </section>
+
+  <div class="compat">
+    <div class="compat-pct">100%</div>
+    <p class="compat-text">
+      <strong>6193 / 6193 upstream test fixtures pass</strong> across 61 rules.
+      <small>Same diagnostics as typescript-eslint, byte-for-byte against the published test suite.</small>
+    </p>
+  </div>
+
+  <section class="section">
+    <div class="section-title">Why jetlint</div>
+    <h2>Type-aware linting at native speed.</h2>
+    <div class="features">
+      <div class="feature">
+        <h3>Native checker</h3>
+        <p>
+          Built on the TypeScript&nbsp;7 native compiler. The checker is real &mdash; no AST
+          heuristics standing in for type queries. If TypeScript can answer it, jetlint can act on it.
+        </p>
+      </div>
+      <div class="feature">
+        <h3>Long-lived daemon</h3>
+        <p>
+          A sidecar process keeps the program and checker warm between runs. The cost of
+          loading TypeScript is paid once; re-lints come back in milliseconds.
+        </p>
+      </div>
+      <div class="feature">
+        <h3>Faithful compatibility</h3>
+        <p>
+          Every rule is verified against typescript-eslint&apos;s published fixtures.
+          61 rules, 6193 cases, 100% match. Switch over without re-learning your config.
+        </p>
+      </div>
+      <div class="feature">
+        <h3>Predictable config</h3>
+        <p>
+          A single <code>.jetlintrc.json</code>. Unknown option keys exit with a structured
+          error instead of being silently ignored &mdash; your config is enforced, not suggested.
+        </p>
+      </div>
+      <div class="feature">
+        <h3>Built for editors and CI</h3>
+        <p>
+          JSON-RPC transport for editor integration; structured diagnostics for CI.
+          Stable exit codes so build pipelines can rely on them.
+        </p>
+      </div>
+      <div class="feature">
+        <h3>Open and inspectable</h3>
+        <p>
+          Open source under MIT. The compatibility harness is in the repo; every rule&apos;s
+          score is reproducible on your own machine.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title">Install</div>
+    <h2>Drop it into your project.</h2>
+    <p>
+      jetlint is in active development and ships from source. Once installed, point it at
+      your <code>tsconfig.json</code>:
+    </p>
+    <pre><code>{`# build from source (requires Go 1.26+)
+go install github.com/jetlint/jetlint/cmd/jetlint@latest
+
+# run on a project
+jetlint --project ./tsconfig.json`}</code></pre>
+    <p>
+      See the <a href="/install/">install guide</a> for editor integration and CI setup, or
+      the <a href="/rules/">rules reference</a> for the full rule list.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="section-title">Status</div>
+    <h2>Pre-1.0. Stable enough to try, not stable enough to depend on.</h2>
+    <p>
+      jetlint is currently a research-grade port of typescript-eslint&apos;s type-aware
+      rules against the TypeScript&nbsp;7 native checker. The diagnostics are real; the API
+      surface (CLI flags, config schema, exit codes) may still change. Feedback on the
+      <a href="https://github.com/jetlint">issue tracker</a> shapes what stabilizes first.
+    </p>
+  </section>
+</Base>
