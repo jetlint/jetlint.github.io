@@ -12,8 +12,8 @@ default; every other rule is `off` until opted in via
 [`.jetlintrc.json`](/config/).
 
 **Compatibility.** 6193 / 6193 typescript-eslint fixtures pass, plus
-693 / 705 oxlint fixtures for the AST-only ports — **6886 / 6898
-(99.8%)** in total. Every rule's score is reproducible from the
+705 / 705 oxlint fixtures for the AST-only ports — **6898 / 6898
+(100%)** in total. Every rule's score is reproducible from the
 [jetlint repo](https://github.com/jetlint/jetlint).
 
 **Origin.** Every type-aware rule was ported from
@@ -56,7 +56,7 @@ legitimate reason to write.
 
 | Rule | Mode | Fixtures |
 |---|:-:|---:|
-| [`array-callback-return`](https://eslint.org/docs/latest/rules/array-callback-return) | AST-only | 229 / 241 |
+| [`array-callback-return`](https://eslint.org/docs/latest/rules/array-callback-return) | AST-only | 241 / 241 |
 | ★ [`await-thenable`](https://typescript-eslint.io/rules/await-thenable) | type-aware | 121 / 121 |
 | [`consistent-return`](https://typescript-eslint.io/rules/consistent-return) | type-aware | 30 / 30 |
 | [`no-array-delete`](https://typescript-eslint.io/rules/no-array-delete) | type-aware | 29 / 29 |
