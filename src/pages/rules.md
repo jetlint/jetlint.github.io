@@ -1,19 +1,19 @@
 ---
 layout: ../layouts/Base.astro
 title: Rules
-description: All 67 jetlint rules, organized into 7 categories. 5 in the recommended preset; the rest opt-in.
+description: All 68 jetlint rules, organized into 7 categories. 5 in the recommended preset; the rest opt-in.
 ---
 
 # Rules
 
-jetlint ships **67 rules** organized into **7 categories**. Five rules
+jetlint ships **68 rules** organized into **7 categories**. Five rules
 form the **recommended preset** and fire at `error` severity by
 default; every other rule is `off` until opted in via
 [`.jetlintrc.json`](/config/).
 
 **Compatibility.** 6193 / 6193 typescript-eslint fixtures pass, plus
-464 / 464 oxlint fixtures for the AST-only ports — **6657 / 6657
-(100%)** in total. Every rule's score is reproducible from the
+693 / 705 oxlint fixtures for the AST-only ports — **6886 / 6898
+(99.8%)** in total. Every rule's score is reproducible from the
 [jetlint repo](https://github.com/jetlint/jetlint).
 
 **Origin.** Every type-aware rule was ported from
@@ -49,13 +49,14 @@ the first matching framing wins, with `correctness` beating
 `performance` beating `complexity` for cross-cutting rules. A ★
 marks rules in the recommended preset.
 
-### correctness — 30 rules
+### correctness — 31 rules
 
 Code that is wrong: runtime bugs, undefined behavior, type holes. No
 legitimate reason to write.
 
 | Rule | Mode | Fixtures |
 |---|:-:|---:|
+| [`array-callback-return`](https://eslint.org/docs/latest/rules/array-callback-return) | AST-only | 229 / 241 |
 | ★ [`await-thenable`](https://typescript-eslint.io/rules/await-thenable) | type-aware | 121 / 121 |
 | [`consistent-return`](https://typescript-eslint.io/rules/consistent-return) | type-aware | 30 / 30 |
 | [`no-array-delete`](https://typescript-eslint.io/rules/no-array-delete) | type-aware | 29 / 29 |
@@ -177,12 +178,12 @@ repo:
 go test -count=1 -run TypescriptEslintCompatibility -v \
   ./internal/rules/<rule-package>/
 
-# ESLint-core ports via oxc (464 fixtures across 6 rules)
+# ESLint-core ports via oxc (705 fixtures across 7 rules)
 go test -count=1 -run EslintCompatibility -v \
   ./internal/rules/<rule-package>/
 ```
 
-The aggregate validates all 67 rules against **6657 fixtures** in one
+The aggregate validates all 68 rules against **6898 fixtures** in one
 go. See [`docs/OXLINT-COMPAT-OVERVIEW.md`](https://github.com/jetlint/jetlint/blob/main/docs/OXLINT-COMPAT-OVERVIEW.md)
 for the AST-only fixture format and how to regenerate from a fresh
 oxc checkout.
