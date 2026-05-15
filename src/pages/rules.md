@@ -1,18 +1,18 @@
 ---
 layout: ../layouts/Base.astro
 title: Rules
-description: All 65 jetlint rules — 61 typescript-eslint ports plus 4 ESLint-core ports.
+description: All 66 jetlint rules — 61 typescript-eslint ports plus 5 ESLint-core ports.
 ---
 
 # Rules
 
-jetlint ships **65 rules** in two families:
+jetlint ships **66 rules** in two families:
 
 - **61 typescript-eslint ports** — type-aware rules verified against
   typescript-eslint's published test fixtures.
-- **4 ESLint-core ports** — non-type-aware correctness rules
-  (`no-duplicate-case`, `no-self-compare`, `use-isnan`, `valid-typeof`)
-  that catch bugs the TypeScript checker cannot.
+- **5 ESLint-core ports** — non-type-aware correctness rules
+  (`no-dupe-keys`, `no-duplicate-case`, `no-self-compare`, `use-isnan`,
+  `valid-typeof`) that catch bugs the TypeScript checker cannot.
 
 > **typescript-eslint compatibility: 6193 / 6193 fixtures pass (100%).**
 
@@ -100,6 +100,7 @@ apply.
 
 | Rule | Catches |
 |---|---|
+| [`no-dupe-keys`](https://eslint.org/docs/latest/rules/no-dupe-keys) | `{a: 1, a: 2}` — earlier assignments silently dropped. Getter/setter pairs for the same name are allowed. |
 | [`no-duplicate-case`](https://eslint.org/docs/latest/rules/no-duplicate-case) | `case 1: ... case 1:` in a switch. The duplicate is unreachable. |
 | [`no-self-compare`](https://eslint.org/docs/latest/rules/no-self-compare) | `a === a`, `obj.foo > obj.foo`, and similar. Usually a typo. |
 | [`use-isnan`](https://eslint.org/docs/latest/rules/use-isnan) | `x === NaN`, `Number.NaN !== y`. `NaN` is never equal to anything; use `Number.isNaN()`. |
@@ -116,7 +117,7 @@ go test -count=1 -run TypescriptEslintCompatibility -v \
 ```
 
 The aggregate run validates **all 61 typescript-eslint ports** against
-**6193 fixtures** in one go. The four ESLint-core ports
-(`no-duplicate-case`, `no-self-compare`, `use-isnan`, `valid-typeof`)
-ship with their own hand-rolled unit tests because ESLint core does
-not publish a machine-readable fixture format.
+**6193 fixtures** in one go. The five ESLint-core ports
+(`no-dupe-keys`, `no-duplicate-case`, `no-self-compare`, `use-isnan`,
+`valid-typeof`) ship with their own hand-rolled unit tests because
+ESLint core does not publish a machine-readable fixture format.
