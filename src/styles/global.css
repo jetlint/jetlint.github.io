@@ -404,6 +404,58 @@ blockquote {
   margin-top: 0.15rem;
 }
 
+/* ---------------- Categories strip ---------------- */
+
+.categories {
+  margin: 3rem 0;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.categories-heading {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.category-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.category-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.category-chip-count {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.categories-note {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.categories-note a {
+  color: var(--accent);
+}
+
 /* ---------------- Small screens ---------------- */
 
 @media (max-width: 640px) {
