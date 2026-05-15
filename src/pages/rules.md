@@ -1,19 +1,23 @@
 ---
 layout: ../layouts/Base.astro
 title: Rules
-description: All 61 jetlint rules and their typescript-eslint compatibility scores.
+description: All 64 jetlint rules — 61 typescript-eslint ports plus 3 ESLint-core ports.
 ---
 
 # Rules
 
-jetlint ships **61 rules**, all type-aware ports of their typescript-eslint
-counterparts. Every rule is verified against typescript-eslint's published
-test fixtures.
+jetlint ships **64 rules** in two families:
 
-> **Aggregate: 6193 / 6193 fixtures pass (100%).**
+- **61 typescript-eslint ports** — type-aware rules verified against
+  typescript-eslint's published test fixtures.
+- **3 ESLint-core ports** — non-type-aware correctness rules
+  (`no-self-compare`, `use-isnan`, `valid-typeof`) that catch bugs the
+  TypeScript checker cannot.
 
-The **5 MVP rules** marked below default to `error`. The remaining 56 default
-to `off`; opt in via [`.jetlintrc.json`](/config/).
+> **typescript-eslint compatibility: 6193 / 6193 fixtures pass (100%).**
+
+The **5 MVP rules** marked below default to `error`. Every other rule
+defaults to `off`; opt in via [`.jetlintrc.json`](/config/).
 
 ## MVP rules (default: error)
 
@@ -86,15 +90,32 @@ to `off`; opt in via [`.jetlintrc.json`](/config/).
 | [`unbound-method`](https://typescript-eslint.io/rules/unbound-method) | 202 / 202 |
 | [`use-unknown-in-catch-callback-variable`](https://typescript-eslint.io/rules/use-unknown-in-catch-callback-variable) | 56 / 56 |
 
+## ESLint-core rules (default: off)
+
+These rules catch bugs that don't need type information — typos in
+`typeof` checks, comparisons against `NaN`, or accidentally comparing a
+variable to itself. Ported from ESLint core, not typescript-eslint, so
+the table links to the ESLint docs and the fixture column doesn't
+apply.
+
+| Rule | Catches |
+|---|---|
+| [`no-self-compare`](https://eslint.org/docs/latest/rules/no-self-compare) | `a === a`, `obj.foo > obj.foo`, and similar. Usually a typo. |
+| [`use-isnan`](https://eslint.org/docs/latest/rules/use-isnan) | `x === NaN`, `Number.NaN !== y`. `NaN` is never equal to anything; use `Number.isNaN()`. |
+| [`valid-typeof`](https://eslint.org/docs/latest/rules/valid-typeof) | `typeof x === "stirng"` — typo'd typeof results. The eight valid values are `undefined`, `object`, `boolean`, `number`, `string`, `function`, `symbol`, `bigint`. |
+
 ## Reproducing the compatibility scores
 
-Every rule has a vendored fixture and a Go harness that loads it. From the
-jetlint repo:
+Every typescript-eslint port has a vendored fixture and a Go harness
+that loads it. From the jetlint repo:
 
 ```bash
 go test -count=1 -run TypescriptEslintCompatibility -v \
   ./internal/rules/<rule-package>/
 ```
 
-The aggregate run validates **all 61 rules** against **6193 fixtures** in one
-go.
+The aggregate run validates **all 61 typescript-eslint ports** against
+**6193 fixtures** in one go. The three ESLint-core ports
+(`no-self-compare`, `use-isnan`, `valid-typeof`) ship with their own
+hand-rolled unit tests because ESLint core does not publish a
+machine-readable fixture format.
