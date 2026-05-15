@@ -94,19 +94,22 @@ defaults to `off`; opt in via [`.jetlintrc.json`](/config/).
 ## ESLint-core rules (default: off)
 
 These rules catch bugs that don't need type information — typos in
-`typeof` checks, comparisons against `NaN`, or accidentally comparing a
-variable to itself. Ported from ESLint core, not typescript-eslint, so
-the table links to the ESLint docs and the fixture column doesn't
-apply.
+`typeof` checks, comparisons against `NaN`, or accidentally comparing
+a variable to itself. Ported from ESLint core, not typescript-eslint,
+so the table links to the ESLint docs and the fixture source is oxc's
+test vectors (which themselves derive from ESLint's own).
 
-| Rule | Catches |
-|---|---|
-| [`no-dupe-keys`](https://eslint.org/docs/latest/rules/no-dupe-keys) | `{a: 1, a: 2}` — earlier assignments silently dropped. Getter/setter pairs for the same name are allowed. |
-| [`no-duplicate-case`](https://eslint.org/docs/latest/rules/no-duplicate-case) | `case 1: ... case 1:` in a switch. The duplicate is unreachable. |
-| [`no-self-assign`](https://eslint.org/docs/latest/rules/no-self-assign) | `a = a`, `obj.foo = obj.foo`. A no-op; almost always a refactoring leftover. |
-| [`no-self-compare`](https://eslint.org/docs/latest/rules/no-self-compare) | `a === a`, `obj.foo > obj.foo`, and similar. Usually a typo. |
-| [`use-isnan`](https://eslint.org/docs/latest/rules/use-isnan) | `x === NaN`, `Number.NaN !== y`. `NaN` is never equal to anything; use `Number.isNaN()`. |
-| [`valid-typeof`](https://eslint.org/docs/latest/rules/valid-typeof) | `typeof x === "stirng"` — typo'd typeof results. The eight valid values are `undefined`, `object`, `boolean`, `number`, `string`, `function`, `symbol`, `bigint`. |
+> **oxlint compatibility: 464 / 464 fixtures pass (100%)** across all
+> six rules, including every option combination upstream tests.
+
+| Rule | Fixtures | Catches |
+|---|---:|---|
+| [`no-dupe-keys`](https://eslint.org/docs/latest/rules/no-dupe-keys) | 50 / 50 | `{a: 1, a: 2}` — earlier assignments silently dropped. Getter/setter pairs and `__proto__` shorthand/method/accessor forms are correctly handled. |
+| [`no-duplicate-case`](https://eslint.org/docs/latest/rules/no-duplicate-case) | 30 / 30 | `case 1: ... case 1:` in a switch. Whitespace, parens, and comments are ignored when comparing labels. |
+| [`no-self-assign`](https://eslint.org/docs/latest/rules/no-self-assign) | 92 / 92 | `a = a`, `obj.foo = obj.foo`, `[a, b] = [a, b]`, `({a} = {a})`, `a ||= a`. Supports the `props` option. |
+| [`no-self-compare`](https://eslint.org/docs/latest/rules/no-self-compare) | 24 / 24 | `a === a`, `(x) > x`, `obj.foo > obj.foo`. Structural AST equality, paren-insensitive. |
+| [`use-isnan`](https://eslint.org/docs/latest/rules/use-isnan) | 208 / 208 | `x === NaN`, `Number.NaN`, `Number['NaN']`, `(1, NaN)`. Supports `enforceForSwitchCase` (default on) and `enforceForIndexOf`. |
+| [`valid-typeof`](https://eslint.org/docs/latest/rules/valid-typeof) | 60 / 60 | `typeof x === "stirng"` typos, plus bare `typeof x === undefined`. Supports `requireStringLiterals`. |
 
 ## Reproducing the compatibility scores
 
@@ -119,7 +122,17 @@ go test -count=1 -run TypescriptEslintCompatibility -v \
 ```
 
 The aggregate run validates **all 61 typescript-eslint ports** against
-**6193 fixtures** in one go. The six ESLint-core ports
-(`no-dupe-keys`, `no-duplicate-case`, `no-self-assign`, `no-self-compare`,
-`use-isnan`, `valid-typeof`) ship with their own hand-rolled unit tests
-because ESLint core does not publish a machine-readable fixture format.
+**6193 fixtures** in one go.
+
+The six ESLint-core ports run against vendored oxc fixtures (oxc is a
+faithful re-implementation of ESLint-core rules in Rust, with the
+test vectors stored as Rust source literals jetlint extracts to JSON):
+
+```bash
+go test -count=1 -run EslintCompatibility -v \
+  ./internal/rules/<rule-package>/
+```
+
+Aggregate: **464 / 464 oxlint fixtures pass (100%)** across the six
+rules. See [`docs/OXLINT-COMPAT-OVERVIEW.md`](https://github.com/jetlint/jetlint/blob/main/docs/OXLINT-COMPAT-OVERVIEW.md)
+for the extractor details and how to regenerate fixtures.
