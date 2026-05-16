@@ -1,12 +1,12 @@
 ---
 layout: ../layouts/Base.astro
 title: Roadmap
-description: jetlint's seven category Milestones, each tracking the rules and infra for one rule category.
+description: jetlint's eight category Milestones, each tracking the rules and infra for one rule category.
 ---
 
 # Roadmap
 
-Work on jetlint is organized into seven **category Milestones** — one
+Work on jetlint is organized into eight **category Milestones** — one
 per rule category in the [taxonomy](https://github.com/jetlint/jetlint/blob/main/docs/RULE-CATEGORIES.md).
 Each Milestone collects the open issues for rules, infra, and
 documentation that belong to that category. Open Milestones never
@@ -58,16 +58,26 @@ JSX accessibility rules. **Blocked on JSX support landing in
 jetlint** — the Milestone exists so the work is visible, but no rules
 will ship here until the underlying support is in place.
 
+### [nursery](https://github.com/jetlint/jetlint/milestone/8)
+
+Rules whose category placement biome hasn't finalized upstream. Mirrored
+here so a planned rule has a home; each rule promotes out to its semantic
+category when biome resolves placement. Distinct from jetlint's
+`Stability: nursery` flag, which marks rules whose **behavior** is still
+iterating.
+
 ## Not tracked here
 
 - **Releases.** Cut on schedule against the categories above; not
   themed Milestones in their own right.
-- **`nursery` rules.** Rules still iterating live as issues in their
-  destination category Milestone with a `stability: nursery` label,
-  not as a separate Milestone.
+- **Stability-nursery rules** (rules whose *behavior* is still iterating)
+  live in their semantic category Milestone with the `Stability: nursery`
+  flag set in the registry, not in the `nursery` Milestone above. The
+  Milestone tracks biome's organizational nursery; the flag tracks jetlint's
+  behavioral nursery.
 - **Cross-cutting infra.** Daemon/LSP, formatter integration, editor
   packages — tracked as their own issues without a category
-  Milestone, since they don't slot into one of the seven.
+  Milestone, since they don't slot into one of the eight.
 
 The full rule catalog and current compatibility numbers are on the
 [rules page](/rules/); the categorization rubric that decides where a
