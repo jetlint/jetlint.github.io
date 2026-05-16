@@ -1,19 +1,21 @@
 ---
 layout: ../layouts/Base.astro
 title: Rules
-description: All 68 jetlint rules, organized into 7 categories. 5 in the recommended preset; the rest opt-in.
+description: All 118 jetlint rules, organized into 7 categories. 5 in the recommended preset; the rest opt-in.
 ---
 
 # Rules
 
-jetlint ships **68 rules** organized into **7 categories**. Five rules
-form the **recommended preset** and fire at `error` severity by
+jetlint ships **118 rules** organized into **7 categories**. Five
+rules form the **recommended preset** and fire at `error` severity by
 default; every other rule is `off` until opted in via
 [`.jetlintrc.json`](/config/).
 
 **Compatibility.** 6193 / 6193 typescript-eslint fixtures pass, plus
-705 / 705 oxlint fixtures for the AST-only ports — **6898 / 6898
-(100%)** in total. Every rule's score is reproducible from the
+3990 / 3990 oxlint fixtures for the AST-only ports, plus 71 / 71
+hand-written tests for the 9 ESLint-core rules without upstream
+fixture data — **100% across the board**. Every rule's score is
+reproducible from the
 [jetlint repo](https://github.com/jetlint/jetlint).
 
 **Origin.** Every type-aware rule was ported from
@@ -49,7 +51,7 @@ the first matching framing wins, with `correctness` beating
 `performance` beating `complexity` for cross-cutting rules. A ★
 marks rules in the recommended preset.
 
-### correctness — 31 rules
+### correctness — 74 rules
 
 Code that is wrong: runtime bugs, undefined behavior, type holes. No
 legitimate reason to write.
@@ -59,28 +61,71 @@ legitimate reason to write.
 | [`array-callback-return`](https://eslint.org/docs/latest/rules/array-callback-return) | AST-only | 241 / 241 |
 | ★ [`await-thenable`](https://typescript-eslint.io/rules/await-thenable) | type-aware | 121 / 121 |
 | [`consistent-return`](https://typescript-eslint.io/rules/consistent-return) | type-aware | 30 / 30 |
+| [`constructor-super`](https://eslint.org/docs/latest/rules/constructor-super) | AST-only | 87 / 87 |
+| [`for-direction`](https://eslint.org/docs/latest/rules/for-direction) | AST-only | 65 / 65 |
+| [`getter-return`](https://eslint.org/docs/latest/rules/getter-return) | AST-only | 85 / 85 |
 | [`no-array-delete`](https://typescript-eslint.io/rules/no-array-delete) | type-aware | 29 / 29 |
+| [`no-async-promise-executor`](https://eslint.org/docs/latest/rules/no-async-promise-executor) | AST-only | 6 / 6 |
 | ★ [`no-base-to-string`](https://typescript-eslint.io/rules/no-base-to-string) | type-aware | 315 / 315 |
+| [`no-class-assign`](https://eslint.org/docs/latest/rules/no-class-assign) | AST-only | 25 / 25 |
+| [`no-compare-neg-zero`](https://eslint.org/docs/latest/rules/no-compare-neg-zero) | AST-only | 40 / 40 |
+| [`no-cond-assign`](https://eslint.org/docs/latest/rules/no-cond-assign) | AST-only | 57 / 57 |
+| [`no-const-assign`](https://eslint.org/docs/latest/rules/no-const-assign) | AST-only | 44 / 44 |
+| [`no-constant-binary-expression`](https://eslint.org/docs/latest/rules/no-constant-binary-expression) | AST-only | 251 / 251 |
+| [`no-constructor-return`](https://eslint.org/docs/latest/rules/no-constructor-return) | AST-only | 20 / 20 |
+| [`no-control-regex`](https://eslint.org/docs/latest/rules/no-control-regex) | AST-only | 8 hand-written |
+| [`no-debugger`](https://eslint.org/docs/latest/rules/no-debugger) | AST-only | 2 / 2 |
+| [`no-dupe-args`](https://eslint.org/docs/latest/rules/no-dupe-args) | AST-only | 5 hand-written |
+| [`no-dupe-class-members`](https://eslint.org/docs/latest/rules/no-dupe-class-members) | AST-only | 74 / 74 |
+| [`no-dupe-else-if`](https://eslint.org/docs/latest/rules/no-dupe-else-if) | AST-only | 89 / 89 |
 | [`no-dupe-keys`](https://eslint.org/docs/latest/rules/no-dupe-keys) | AST-only | 50 / 50 |
 | [`no-duplicate-case`](https://eslint.org/docs/latest/rules/no-duplicate-case) | AST-only | 30 / 30 |
+| [`no-empty-character-class`](https://eslint.org/docs/latest/rules/no-empty-character-class) | AST-only | 7 hand-written |
+| [`no-empty-pattern`](https://eslint.org/docs/latest/rules/no-empty-pattern) | AST-only | 31 / 31 |
+| [`no-ex-assign`](https://eslint.org/docs/latest/rules/no-ex-assign) | AST-only | 8 / 8 |
 | ★ [`no-floating-promises`](https://typescript-eslint.io/rules/no-floating-promises) | type-aware | 175 / 175 |
 | [`no-for-in-array`](https://typescript-eslint.io/rules/no-for-in-array) | type-aware | 22 / 22 |
+| [`no-func-assign`](https://eslint.org/docs/latest/rules/no-func-assign) | AST-only | 16 / 16 |
+| [`no-import-assign`](https://eslint.org/docs/latest/rules/no-import-assign) | AST-only | 116 / 116 |
+| [`no-invalid-regexp`](https://eslint.org/docs/latest/rules/no-invalid-regexp) | AST-only | 7 hand-written |
+| [`no-loss-of-precision`](https://eslint.org/docs/latest/rules/no-loss-of-precision) | AST-only | 145 / 145 |
+| [`no-misleading-character-class`](https://eslint.org/docs/latest/rules/no-misleading-character-class) | AST-only | 6 hand-written |
 | ★ [`no-misused-promises`](https://typescript-eslint.io/rules/no-misused-promises) | type-aware | 215 / 215 |
 | [`no-misused-spread`](https://typescript-eslint.io/rules/no-misused-spread) | type-aware | 128 / 128 |
 | [`no-mixed-enums`](https://typescript-eslint.io/rules/no-mixed-enums) | type-aware | 51 / 51 |
+| [`no-new-native-nonconstructor`](https://eslint.org/docs/latest/rules/no-new-native-nonconstructor) | AST-only | 14 / 14 |
+| [`no-obj-calls`](https://eslint.org/docs/latest/rules/no-obj-calls) | AST-only | 75 / 75 |
+| [`no-promise-executor-return`](https://eslint.org/docs/latest/rules/no-promise-executor-return) | AST-only | 122 / 122 |
+| [`no-prototype-builtins`](https://eslint.org/docs/latest/rules/no-prototype-builtins) | AST-only | 47 / 47 |
 | [`no-self-assign`](https://eslint.org/docs/latest/rules/no-self-assign) | AST-only | 92 / 92 |
 | [`no-self-compare`](https://eslint.org/docs/latest/rules/no-self-compare) | AST-only | 24 / 24 |
+| [`no-setter-return`](https://eslint.org/docs/latest/rules/no-setter-return) | AST-only | 142 / 142 |
+| [`no-sparse-arrays`](https://eslint.org/docs/latest/rules/no-sparse-arrays) | AST-only | 9 / 9 |
+| [`no-template-curly-in-string`](https://eslint.org/docs/latest/rules/no-template-curly-in-string) | AST-only | 23 / 23 |
+| [`no-this-before-super`](https://eslint.org/docs/latest/rules/no-this-before-super) | AST-only | 65 / 65 |
+| [`no-undef`](https://eslint.org/docs/latest/rules/no-undef) | AST-only | 97 / 97 |
+| [`no-unmodified-loop-condition`](https://eslint.org/docs/latest/rules/no-unmodified-loop-condition) | AST-only | 39 / 39 |
+| [`no-unreachable`](https://eslint.org/docs/latest/rules/no-unreachable) | AST-only | 65 / 65 |
+| [`no-unreachable-loop`](https://eslint.org/docs/latest/rules/no-unreachable-loop) | AST-only | 10 hand-written |
 | [`no-unsafe-argument`](https://typescript-eslint.io/rules/no-unsafe-argument) | type-aware | 42 / 42 |
 | ★ [`no-unsafe-assignment`](https://typescript-eslint.io/rules/no-unsafe-assignment) | type-aware | 91 / 91 |
 | [`no-unsafe-call`](https://typescript-eslint.io/rules/no-unsafe-call) | type-aware | 38 / 38 |
 | [`no-unsafe-enum-comparison`](https://typescript-eslint.io/rules/no-unsafe-enum-comparison) | type-aware | 85 / 85 |
+| [`no-unsafe-finally`](https://eslint.org/docs/latest/rules/no-unsafe-finally) | AST-only | 28 / 28 |
 | [`no-unsafe-member-access`](https://typescript-eslint.io/rules/no-unsafe-member-access) | type-aware | 35 / 35 |
+| [`no-unsafe-negation`](https://eslint.org/docs/latest/rules/no-unsafe-negation) | AST-only | 30 / 30 |
+| [`no-unsafe-optional-chaining`](https://eslint.org/docs/latest/rules/no-unsafe-optional-chaining) | AST-only | 82 / 82 |
 | [`no-unsafe-return`](https://typescript-eslint.io/rules/no-unsafe-return) | type-aware | 62 / 62 |
 | [`no-unsafe-unary-minus`](https://typescript-eslint.io/rules/no-unsafe-unary-minus) | type-aware | 23 / 23 |
+| [`no-unused-private-class-members`](https://eslint.org/docs/latest/rules/no-unused-private-class-members) | AST-only | 87 / 87 |
+| [`no-unused-vars`](https://eslint.org/docs/latest/rules/no-unused-vars) | AST-only | 12 hand-written |
+| [`no-use-before-define`](https://eslint.org/docs/latest/rules/no-use-before-define) | AST-only | 340 / 340 |
+| [`no-useless-backreference`](https://eslint.org/docs/latest/rules/no-useless-backreference) | AST-only | 9 hand-written |
 | [`only-throw-error`](https://typescript-eslint.io/rules/only-throw-error) | type-aware | 89 / 89 |
 | [`prefer-promise-reject-errors`](https://typescript-eslint.io/rules/prefer-promise-reject-errors) | type-aware | 161 / 161 |
 | [`related-getter-setter-pairs`](https://typescript-eslint.io/rules/related-getter-setter-pairs) | type-aware | 23 / 23 |
 | [`require-array-sort-compare`](https://typescript-eslint.io/rules/require-array-sort-compare) | type-aware | 33 / 33 |
+| [`require-atomic-updates`](https://eslint.org/docs/latest/rules/require-atomic-updates) | AST-only | 7 hand-written |
 | [`require-await`](https://typescript-eslint.io/rules/require-await) | type-aware | 54 / 54 |
 | [`strict-void-return`](https://typescript-eslint.io/rules/strict-void-return) | type-aware | 210 / 210 |
 | [`switch-exhaustiveness-check`](https://typescript-eslint.io/rules/switch-exhaustiveness-check) | type-aware | 104 / 104 |
@@ -88,7 +133,7 @@ legitimate reason to write.
 | [`use-unknown-in-catch-callback-variable`](https://typescript-eslint.io/rules/use-unknown-in-catch-callback-variable) | type-aware | 56 / 56 |
 | [`valid-typeof`](https://eslint.org/docs/latest/rules/valid-typeof) | AST-only | 60 / 60 |
 
-### suspicious — 9 rules
+### suspicious — 14 rules
 
 Code that smells. Usually wrong, occasionally intentional. The author
 should justify or fix.
@@ -96,7 +141,12 @@ should justify or fix.
 | Rule | Mode | Fixtures |
 |---|:-:|---:|
 | [`no-confusing-void-expression`](https://typescript-eslint.io/rules/no-confusing-void-expression) | type-aware | 108 / 108 |
+| [`no-constant-condition`](https://eslint.org/docs/latest/rules/no-constant-condition) | AST-only | 306 / 306 |
 | [`no-deprecated`](https://typescript-eslint.io/rules/no-deprecated) | type-aware | 262 / 262 |
+| [`no-fallthrough`](https://eslint.org/docs/latest/rules/no-fallthrough) | AST-only | 86 / 86 |
+| [`no-inner-declarations`](https://eslint.org/docs/latest/rules/no-inner-declarations) | AST-only | 66 / 66 |
+| [`no-irregular-whitespace`](https://eslint.org/docs/latest/rules/no-irregular-whitespace) | AST-only | 220 / 220 |
+| [`no-unexpected-multiline`](https://eslint.org/docs/latest/rules/no-unexpected-multiline) | AST-only | 58 / 58 |
 | [`no-unsafe-type-assertion`](https://typescript-eslint.io/rules/no-unsafe-type-assertion) | type-aware | 15 / 15 |
 | [`promise-function-async`](https://typescript-eslint.io/rules/promise-function-async) | type-aware | 53 / 53 |
 | [`restrict-plus-operands`](https://typescript-eslint.io/rules/restrict-plus-operands) | type-aware | 119 / 119 |
@@ -114,12 +164,13 @@ deserialization.
 |---|:-:|---:|
 | [`no-implied-eval`](https://typescript-eslint.io/rules/no-implied-eval) | type-aware | 70 / 70 |
 
-### performance — 4 rules
+### performance — 5 rules
 
 Known-slow patterns with a faster equivalent. No correctness impact.
 
 | Rule | Mode | Fixtures |
 |---|:-:|---:|
+| [`no-await-in-loop`](https://eslint.org/docs/latest/rules/no-await-in-loop) | AST-only | 37 / 37 |
 | [`prefer-find`](https://typescript-eslint.io/rules/prefer-find) | type-aware | 45 / 45 |
 | [`prefer-includes`](https://typescript-eslint.io/rules/prefer-includes) | type-aware | 42 / 42 |
 | [`prefer-regexp-exec`](https://typescript-eslint.io/rules/prefer-regexp-exec) | type-aware | 37 / 37 |
@@ -150,7 +201,7 @@ perf impact.
 | [`prefer-reduce-type-parameter`](https://typescript-eslint.io/rules/prefer-reduce-type-parameter) | type-aware | 31 / 31 |
 | [`prefer-return-this-type`](https://typescript-eslint.io/rules/prefer-return-this-type) | type-aware | 21 / 21 |
 
-### style — 6 rules
+### style — 7 rules
 
 Formatting, naming, ordering. Pure preference; team-configurable.
 
@@ -159,6 +210,7 @@ Formatting, naming, ordering. Pure preference; team-configurable.
 | [`consistent-type-exports`](https://typescript-eslint.io/rules/consistent-type-exports) | type-aware | 47 / 47 |
 | [`dot-notation`](https://typescript-eslint.io/rules/dot-notation) | type-aware | 61 / 61 |
 | [`naming-convention`](https://typescript-eslint.io/rules/naming-convention) | type-aware | 88 / 88 |
+| [`no-duplicate-imports`](https://eslint.org/docs/latest/rules/no-duplicate-imports) | AST-only | 86 / 86 |
 | [`no-meaningless-void-operator`](https://typescript-eslint.io/rules/no-meaningless-void-operator) | type-aware | 5 / 5 |
 | [`prefer-readonly`](https://typescript-eslint.io/rules/prefer-readonly) | type-aware | 162 / 162 |
 | [`prefer-readonly-parameter-types`](https://typescript-eslint.io/rules/prefer-readonly-parameter-types) | type-aware | 130 / 130 |
@@ -170,20 +222,24 @@ Not included in the recommended preset. Empty today.
 
 ## Reproducing the compatibility scores
 
-Every rule has a vendored fixture and a Go harness. From the jetlint
-repo:
+Every rule has a vendored fixture (or, for the 9 ESLint-core rules
+without upstream fixture data, a hand-written test file) and a Go
+harness. From the jetlint repo:
 
 ```bash
 # typescript-eslint ports (6193 fixtures across 61 rules)
 go test -count=1 -run TypescriptEslintCompatibility -v \
   ./internal/rules/<rule-package>/
 
-# ESLint-core ports via oxc (705 fixtures across 7 rules)
+# ESLint-core ports via oxc (3990 fixtures across 48 rules)
 go test -count=1 -run EslintCompatibility -v \
   ./internal/rules/<rule-package>/
+
+# Hand-written ESLint-core tests (71 tests across 9 rules)
+go test -count=1 -v ./internal/rules/<rule-package>/
 ```
 
-The aggregate validates all 68 rules against **6898 fixtures** in one
-go. See [`docs/OXLINT-COMPAT-OVERVIEW.md`](https://github.com/jetlint/jetlint/blob/main/docs/OXLINT-COMPAT-OVERVIEW.md)
+The aggregate validates all 118 rules in one go. See
+[`docs/OXLINT-COMPAT-OVERVIEW.md`](https://github.com/jetlint/jetlint/blob/main/docs/OXLINT-COMPAT-OVERVIEW.md)
 for the AST-only fixture format and how to regenerate from a fresh
 oxc checkout.
