@@ -62,8 +62,8 @@ directory is on your `PATH`.
 jetlint --project ./tsconfig.json
 ```
 
-By default, jetlint applies the **5 MVP rules** at `error` severity. The other
-**56 rules** ship `off`; see [Config](/config/) to opt in.
+By default, jetlint applies the **5 recommended rules** at `error` severity. The other
+**113 rules** ship `off`; see [Config](/config/) to opt in.
 
 ## Run as a daemon
 
