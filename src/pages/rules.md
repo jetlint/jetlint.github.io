@@ -1,26 +1,28 @@
 ---
 layout: ../layouts/Base.astro
 title: Rules
-description: All 118 jetlint rules, organized into 7 categories. 5 in the recommended preset; the rest opt-in.
+description: All 166 jetlint rules, organized into 7 categories. 5 in the recommended preset; the rest opt-in.
 ---
 
 # Rules
 
-jetlint ships **118 rules** organized into **7 categories**. Five
+jetlint ships **166 rules** organized into **7 categories**. Five
 rules form the **recommended preset** and fire at `error` severity by
 default; every other rule is `off` until opted in via
 [`.jetlintrc.json`](/config/).
 
 **Compatibility.** 6193 / 6193 typescript-eslint fixtures pass, plus
-3990 / 3990 oxlint fixtures for the AST-only ports, plus 71 / 71
-hand-written tests for the 9 ESLint-core rules without upstream
-fixture data — **100% across the board**. Every rule's score is
-reproducible from the
-[jetlint repo](https://github.com/jetlint/jetlint).
+4320 / 4320 AST-only fixtures across the 96 biome and
+oxlint ports, plus 71 / 71 hand-written tests for the 9
+ESLint-core rules without upstream fixture data — **100% across the
+board** (10584 cases total). Every rule's score is reproducible from
+the [jetlint repo](https://github.com/jetlint/jetlint).
 
-**Origin.** Every type-aware rule was ported from
-[typescript-eslint](https://typescript-eslint.io/); every AST-only
-rule was ported from [ESLint core](https://eslint.org/). The
+**Origin.** Type-aware rules were ported from
+[typescript-eslint](https://typescript-eslint.io/); AST-only rules
+from [biome](https://biomejs.dev/) and
+[oxlint](https://oxc.rs/docs/guide/usage/linter) (which themselves
+mirror [ESLint core](https://eslint.org/) for the JS-only rules). The
 distinction the rule pages care about is **type-aware vs AST-only**
 (does the rule cost a TypeScript program load?) so that's what each
 row below shows.
@@ -51,10 +53,9 @@ the first matching framing wins, with `correctness` beating
 `performance` beating `complexity` for cross-cutting rules. A ★
 marks rules in the recommended preset.
 
-### correctness — 57 rules
+### correctness — 105 rules
 
-Code that is wrong: runtime bugs, undefined behavior, type holes. No
-legitimate reason to write.
+Code that is wrong: runtime bugs, undefined behavior, type holes. No legitimate reason to write.
 
 | Rule | Mode | Fixtures |
 |---|:-:|---:|
@@ -65,32 +66,57 @@ legitimate reason to write.
 | [`for-direction`](https://eslint.org/docs/latest/rules/for-direction) | AST-only | 65 / 65 |
 | [`no-array-delete`](https://typescript-eslint.io/rules/no-array-delete) | type-aware | 29 / 29 |
 | ★ [`no-base-to-string`](https://typescript-eslint.io/rules/no-base-to-string) | type-aware | 315 / 315 |
+| [`no-children-prop`](https://biomejs.dev/linter/rules/noChildrenProp) | AST-only | 2 / 2 |
 | [`no-cond-assign`](https://eslint.org/docs/latest/rules/no-cond-assign) | AST-only | 57 / 57 |
 | [`no-const-assign`](https://eslint.org/docs/latest/rules/no-const-assign) | AST-only | 44 / 44 |
 | [`no-constant-condition`](https://eslint.org/docs/latest/rules/no-constant-condition) | AST-only | 306 / 306 |
+| [`no-constant-math-min-max-clamp`](https://biomejs.dev/linter/rules/noConstantMathMinMaxClamp) | AST-only | 3 / 3 |
 | [`no-constructor-return`](https://eslint.org/docs/latest/rules/no-constructor-return) | AST-only | 20 / 20 |
+| [`no-duplicate-private-class-members`](https://biomejs.dev/linter/rules/noDuplicatePrivateClassMembers) | AST-only | 2 / 2 |
 | [`no-empty-character-class`](https://eslint.org/docs/latest/rules/no-empty-character-class) | AST-only | 7 hand-written |
 | [`no-empty-pattern`](https://eslint.org/docs/latest/rules/no-empty-pattern) | AST-only | 31 / 31 |
 | [`no-ex-assign`](https://eslint.org/docs/latest/rules/no-ex-assign) | AST-only | 8 / 8 |
 | ★ [`no-floating-promises`](https://typescript-eslint.io/rules/no-floating-promises) | type-aware | 175 / 175 |
 | [`no-for-in-array`](https://typescript-eslint.io/rules/no-for-in-array) | type-aware | 22 / 22 |
 | [`no-func-assign`](https://eslint.org/docs/latest/rules/no-func-assign) | AST-only | 16 / 16 |
+| [`no-global-dirname-filename`](https://biomejs.dev/linter/rules/noGlobalDirnameFilename) | AST-only | 4 / 4 |
+| [`no-initializer-with-definite`](https://biomejs.dev/linter/rules/noInitializerWithDefinite) | AST-only | 2 / 2 |
 | [`no-inner-declarations`](https://eslint.org/docs/latest/rules/no-inner-declarations) | AST-only | 66 / 66 |
+| [`no-invalid-builtin-instantiation`](https://biomejs.dev/linter/rules/noInvalidBuiltinInstantiation) | AST-only | 2 / 2 |
 | [`no-invalid-regexp`](https://eslint.org/docs/latest/rules/no-invalid-regexp) | AST-only | 7 hand-written |
 | [`no-loss-of-precision`](https://eslint.org/docs/latest/rules/no-loss-of-precision) | AST-only | 145 / 145 |
 | ★ [`no-misused-promises`](https://typescript-eslint.io/rules/no-misused-promises) | type-aware | 215 / 215 |
 | [`no-misused-spread`](https://typescript-eslint.io/rules/no-misused-spread) | type-aware | 128 / 128 |
 | [`no-mixed-enums`](https://typescript-eslint.io/rules/no-mixed-enums) | type-aware | 51 / 51 |
+| [`no-nested-component-definitions`](https://biomejs.dev/linter/rules/noNestedComponentDefinitions) | AST-only | 3 / 3 |
 | [`no-new-native-nonconstructor`](https://eslint.org/docs/latest/rules/no-new-native-nonconstructor) | AST-only | 14 / 14 |
+| [`no-next-async-client-component`](https://biomejs.dev/linter/rules/noNextAsyncClientComponent) | AST-only | 3 / 3 |
+| [`no-nodejs-modules`](https://biomejs.dev/linter/rules/noNodejsModules) | AST-only | 3 / 3 |
+| [`no-nonoctal-decimal-escape`](https://biomejs.dev/linter/rules/noNonoctalDecimalEscape) | AST-only | 2 / 2 |
 | [`no-obj-calls`](https://eslint.org/docs/latest/rules/no-obj-calls) | AST-only | 75 / 75 |
+| [`no-precision-loss`](https://biomejs.dev/linter/rules/noPrecisionLoss) | AST-only | 2 / 2 |
+| [`no-private-imports`](https://biomejs.dev/linter/rules/noPrivateImports) | AST-only | 17 / 17 |
+| [`no-process-global`](https://biomejs.dev/linter/rules/noProcessGlobal) | AST-only | 4 / 4 |
 | [`no-promise-executor-return`](https://eslint.org/docs/latest/rules/no-promise-executor-return) | AST-only | 122 / 122 |
+| [`no-qwik-use-visible-task`](https://biomejs.dev/linter/rules/noQwikUseVisibleTask) | AST-only | 2 / 2 |
+| [`no-react-prop-assignments`](https://biomejs.dev/linter/rules/noReactPropAssignments) | AST-only | 2 / 2 |
+| [`no-render-return-value`](https://biomejs.dev/linter/rules/noRenderReturnValue) | AST-only | 5 / 5 |
+| [`no-restricted-elements`](https://biomejs.dev/linter/rules/noRestrictedElements) | AST-only | 0 / 0 |
 | [`no-self-assign`](https://eslint.org/docs/latest/rules/no-self-assign) | AST-only | 92 / 92 |
 | [`no-setter-return`](https://eslint.org/docs/latest/rules/no-setter-return) | AST-only | 142 / 142 |
+| [`no-solid-destructured-props`](https://biomejs.dev/linter/rules/noSolidDestructuredProps) | AST-only | 2 / 2 |
+| [`no-string-case-mismatch`](https://biomejs.dev/linter/rules/noStringCaseMismatch) | AST-only | 2 / 2 |
+| [`no-super-without-extends`](https://biomejs.dev/linter/rules/noSuperWithoutExtends) | AST-only | 2 / 2 |
+| [`no-switch-declarations`](https://biomejs.dev/linter/rules/noSwitchDeclarations) | AST-only | 13 / 13 |
 | [`no-this-before-super`](https://eslint.org/docs/latest/rules/no-this-before-super) | AST-only | 65 / 65 |
+| [`no-type-only-import-attributes`](https://biomejs.dev/linter/rules/noTypeOnlyImportAttributes) | AST-only | 4 / 4 |
+| [`no-undeclared-dependencies`](https://biomejs.dev/linter/rules/noUndeclaredDependencies) | AST-only | 4 / 4 |
 | [`no-undef`](https://eslint.org/docs/latest/rules/no-undef) | AST-only | 97 / 97 |
 | [`no-unmodified-loop-condition`](https://eslint.org/docs/latest/rules/no-unmodified-loop-condition) | AST-only | 39 / 39 |
 | [`no-unreachable`](https://eslint.org/docs/latest/rules/no-unreachable) | AST-only | 65 / 65 |
 | [`no-unreachable-loop`](https://eslint.org/docs/latest/rules/no-unreachable-loop) | AST-only | 10 hand-written |
+| [`no-unreachable-super`](https://biomejs.dev/linter/rules/noUnreachableSuper) | AST-only | 4 / 4 |
+| [`no-unresolved-imports`](https://biomejs.dev/linter/rules/noUnresolvedImports) | AST-only | 2 / 2 |
 | [`no-unsafe-argument`](https://typescript-eslint.io/rules/no-unsafe-argument) | type-aware | 42 / 42 |
 | ★ [`no-unsafe-assignment`](https://typescript-eslint.io/rules/no-unsafe-assignment) | type-aware | 91 / 91 |
 | [`no-unsafe-call`](https://typescript-eslint.io/rules/no-unsafe-call) | type-aware | 38 / 38 |
@@ -100,10 +126,20 @@ legitimate reason to write.
 | [`no-unsafe-optional-chaining`](https://eslint.org/docs/latest/rules/no-unsafe-optional-chaining) | AST-only | 82 / 82 |
 | [`no-unsafe-return`](https://typescript-eslint.io/rules/no-unsafe-return) | type-aware | 62 / 62 |
 | [`no-unsafe-unary-minus`](https://typescript-eslint.io/rules/no-unsafe-unary-minus) | type-aware | 23 / 23 |
+| [`no-unused-function-parameters`](https://biomejs.dev/linter/rules/noUnusedFunctionParameters) | AST-only | 6 / 6 |
+| [`no-unused-imports`](https://biomejs.dev/linter/rules/noUnusedImports) | AST-only | 30 / 30 |
+| [`no-unused-labels`](https://eslint.org/docs/latest/rules/no-unused-labels) | AST-only | 31 / 31 |
 | [`no-unused-private-class-members`](https://eslint.org/docs/latest/rules/no-unused-private-class-members) | AST-only | 87 / 87 |
 | [`no-unused-vars`](https://eslint.org/docs/latest/rules/no-unused-vars) | AST-only | 12 hand-written |
 | [`no-use-before-define`](https://eslint.org/docs/latest/rules/no-use-before-define) | AST-only | 340 / 340 |
 | [`no-useless-backreference`](https://eslint.org/docs/latest/rules/no-useless-backreference) | AST-only | 9 hand-written |
+| [`no-void-elements-with-children`](https://biomejs.dev/linter/rules/noVoidElementsWithChildren) | AST-only | 2 / 2 |
+| [`no-void-type-return`](https://biomejs.dev/linter/rules/noVoidTypeReturn) | AST-only | 2 / 2 |
+| [`no-vue-data-object-declaration`](https://biomejs.dev/linter/rules/noVueDataObjectDeclaration) | AST-only | 13 / 13 |
+| [`no-vue-duplicate-keys`](https://biomejs.dev/linter/rules/noVueDuplicateKeys) | AST-only | 21 / 21 |
+| [`no-vue-reserved-keys`](https://biomejs.dev/linter/rules/noVueReservedKeys) | AST-only | 21 / 21 |
+| [`no-vue-reserved-props`](https://biomejs.dev/linter/rules/noVueReservedProps) | AST-only | 20 / 20 |
+| [`no-vue-setup-props-reactivity-loss`](https://biomejs.dev/linter/rules/noVueSetupPropsReactivityLoss) | AST-only | 4 / 4 |
 | [`only-throw-error`](https://typescript-eslint.io/rules/only-throw-error) | type-aware | 89 / 89 |
 | [`prefer-promise-reject-errors`](https://typescript-eslint.io/rules/prefer-promise-reject-errors) | type-aware | 161 / 161 |
 | [`related-getter-setter-pairs`](https://typescript-eslint.io/rules/related-getter-setter-pairs) | type-aware | 23 / 23 |
@@ -112,14 +148,26 @@ legitimate reason to write.
 | [`require-await`](https://typescript-eslint.io/rules/require-await) | type-aware | 54 / 54 |
 | [`strict-void-return`](https://typescript-eslint.io/rules/strict-void-return) | type-aware | 210 / 210 |
 | [`switch-exhaustiveness-check`](https://typescript-eslint.io/rules/switch-exhaustiveness-check) | type-aware | 104 / 104 |
+| [`use-exhaustive-dependencies`](https://biomejs.dev/linter/rules/useExhaustiveDependencies) | AST-only | 37 / 37 |
+| [`use-hook-at-top-level`](https://biomejs.dev/linter/rules/useHookAtTopLevel) | AST-only | 10 / 10 |
+| [`use-image-size`](https://biomejs.dev/linter/rules/useImageSize) | AST-only | 6 / 6 |
+| [`use-import-extensions`](https://biomejs.dev/linter/rules/useImportExtensions) | AST-only | 2 / 2 |
 | [`use-isnan`](https://eslint.org/docs/latest/rules/use-isnan) | AST-only | 208 / 208 |
+| [`use-json-import-attributes`](https://biomejs.dev/linter/rules/useJsonImportAttributes) | AST-only | 2 / 2 |
+| [`use-jsx-key-in-iterable`](https://biomejs.dev/linter/rules/useJsxKeyInIterable) | AST-only | 2 / 2 |
+| [`use-parse-int-radix`](https://biomejs.dev/linter/rules/useParseIntRadix) | AST-only | 2 / 2 |
+| [`use-qwik-classlist`](https://biomejs.dev/linter/rules/useQwikClasslist) | AST-only | 2 / 2 |
+| [`use-qwik-method-usage`](https://biomejs.dev/linter/rules/useQwikMethodUsage) | AST-only | 2 / 2 |
+| [`use-qwik-valid-lexical-scope`](https://biomejs.dev/linter/rules/useQwikValidLexicalScope) | AST-only | 2 / 2 |
+| [`use-single-js-doc-asterisk`](https://biomejs.dev/linter/rules/useSingleJsDocAsterisk) | AST-only | 3 / 3 |
+| [`use-unique-element-ids`](https://biomejs.dev/linter/rules/useUniqueElementIds) | AST-only | 2 / 2 |
 | [`use-unknown-in-catch-callback-variable`](https://typescript-eslint.io/rules/use-unknown-in-catch-callback-variable) | type-aware | 56 / 56 |
+| [`use-yield`](https://eslint.org/docs/latest/rules/use-yield) | AST-only | 17 / 17 |
 | [`valid-typeof`](https://eslint.org/docs/latest/rules/valid-typeof) | AST-only | 60 / 60 |
 
 ### suspicious — 31 rules
 
-Code that smells. Usually wrong, occasionally intentional. The author
-should justify or fix.
+Code that smells. Usually wrong, occasionally intentional. The author should justify or fix.
 
 | Rule | Mode | Fixtures |
 |---|:-:|---:|
@@ -157,8 +205,7 @@ should justify or fix.
 
 ### security — 1 rule
 
-Patterns enabling injection, eval, prototype pollution, or unsafe
-deserialization.
+Patterns enabling injection, eval, prototype pollution, or unsafe deserialization.
 
 | Rule | Mode | Fixtures |
 |---|:-:|---:|
@@ -178,8 +225,7 @@ Known-slow patterns with a faster equivalent. No correctness impact.
 
 ### complexity — 17 rules
 
-Needless complication with a simpler equivalent. No correctness or
-perf impact.
+Needless complication with a simpler equivalent. No correctness or perf impact.
 
 | Rule | Mode | Fixtures |
 |---|:-:|---:|
@@ -217,29 +263,24 @@ Formatting, naming, ordering. Pure preference; team-configurable.
 
 ### nursery — 0 rules
 
-New or iterating rules. May change shape or move to another group.
-Not included in the recommended preset. Empty today.
+New or iterating rules. May change shape or move to another group. Not included in the recommended preset. Empty today.
 
 ## Reproducing the compatibility scores
 
-Every rule has a vendored fixture (or, for the 9 ESLint-core rules
-without upstream fixture data, a hand-written test file) and a Go
+Every rule has a vendored fixture (or inline test cases) and a Go
 harness. From the jetlint repo:
 
 ```bash
-# typescript-eslint ports (6193 fixtures across 61 rules)
+# typescript-eslint ports (type-aware rules)
 go test -count=1 -run TypescriptEslintCompatibility -v \
   ./internal/rules/<rule-package>/
 
-# ESLint-core ports via oxc (3990 fixtures across 48 rules)
+# biome + ESLint-core ports (AST-only rules)
 go test -count=1 -run EslintCompatibility -v \
   ./internal/rules/<rule-package>/
-
-# Hand-written ESLint-core tests (71 tests across 9 rules)
-go test -count=1 -v ./internal/rules/<rule-package>/
 ```
 
-The aggregate validates all 118 rules in one go. See
-[`docs/OXLINT-COMPAT-OVERVIEW.md`](https://github.com/jetlint/jetlint/blob/main/docs/OXLINT-COMPAT-OVERVIEW.md)
+The aggregate validates all 166 rules against **10584 cases** in one
+go. See [`docs/OXLINT-COMPAT-OVERVIEW.md`](https://github.com/jetlint/jetlint/blob/main/docs/OXLINT-COMPAT-OVERVIEW.md)
 for the AST-only fixture format and how to regenerate from a fresh
-oxc checkout.
+oxc/biome checkout.
