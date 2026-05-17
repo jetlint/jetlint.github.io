@@ -20,8 +20,8 @@ import Base from '../layouts/Base.astro';
   <div class="compat">
     <div class="compat-pct">100%</div>
     <p class="compat-text">
-      <strong>10513 / 10513 upstream fixtures pass</strong> across 166 rules
-      (61 typescript-eslint ports + 96 biome / oxlint ports), plus hand-written tests
+      <strong>10598 / 10598 upstream fixtures pass</strong> across 182 rules
+      (61 typescript-eslint ports + 112 biome / oxlint ports), plus hand-written tests
       for 9 ESLint-core rules without upstream fixture data.
       <small>Same diagnostics as the upstream tools, byte-for-byte against their published test suites.</small>
     </p>
@@ -50,8 +50,8 @@ import Base from '../layouts/Base.astro';
         <h3>Faithful compatibility</h3>
         <p>
           Every rule is verified against upstream fixtures: 6193 typescript-eslint cases
-          and 4320 biome / oxlint cases, plus hand-written tests for 9 ESLint-core rules
-          without upstream fixtures. 100% match across all 166 rules. Switch over
+          and 4405 biome / oxlint cases, plus hand-written tests for 9 ESLint-core rules
+          without upstream fixtures. 100% match across all 182 rules. Switch over
           without re-learning your config.
         </p>
       </div>
@@ -80,14 +80,14 @@ import Base from '../layouts/Base.astro';
   </section>
 
   <div class="categories">
-    <p class="categories-heading">166 rules, organized into 7 categories.</p>
+    <p class="categories-heading">182 rules, organized into 7 categories.</p>
     <ul class="category-chips">
       <li class="category-chip">correctness <span class="category-chip-count">105</span></li>
       <li class="category-chip">suspicious <span class="category-chip-count">31</span></li>
       <li class="category-chip">complexity <span class="category-chip-count">17</span></li>
       <li class="category-chip">style <span class="category-chip-count">7</span></li>
-      <li class="category-chip">performance <span class="category-chip-count">5</span></li>
-      <li class="category-chip">security <span class="category-chip-count">1</span></li>
+      <li class="category-chip">performance <span class="category-chip-count">16</span></li>
+      <li class="category-chip">security <span class="category-chip-count">6</span></li>
       <li class="category-chip">nursery <span class="category-chip-count">0</span></li>
     </ul>
     <p class="categories-note">

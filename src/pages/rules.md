@@ -1,21 +1,21 @@
 ---
 layout: ../layouts/Base.astro
 title: Rules
-description: All 166 jetlint rules, organized into 7 categories. 5 in the recommended preset; the rest opt-in.
+description: All 182 jetlint rules, organized into 7 categories. 5 in the recommended preset; the rest opt-in.
 ---
 
 # Rules
 
-jetlint ships **166 rules** organized into **7 categories**. Five
+jetlint ships **182 rules** organized into **7 categories**. Five
 rules form the **recommended preset** and fire at `error` severity by
 default; every other rule is `off` until opted in via
 [`.jetlintrc.json`](/config/).
 
 **Compatibility.** 6193 / 6193 typescript-eslint fixtures pass, plus
-4320 / 4320 AST-only fixtures across the 96 biome and
+4405 / 4405 AST-only fixtures across the 112 biome and
 oxlint ports, plus 71 / 71 hand-written tests for the 9
 ESLint-core rules without upstream fixture data — **100% across the
-board** (10584 cases total). Every rule's score is reproducible from
+board** (10669 cases total). Every rule's score is reproducible from
 the [jetlint repo](https://github.com/jetlint/jetlint).
 
 **Origin.** Type-aware rules were ported from
@@ -203,25 +203,41 @@ Code that smells. Usually wrong, occasionally intentional. The author should jus
 | [`strict-boolean-expressions`](https://typescript-eslint.io/rules/strict-boolean-expressions) | type-aware | 214 / 214 |
 | [`unbound-method`](https://typescript-eslint.io/rules/unbound-method) | type-aware | 202 / 202 |
 
-### security — 1 rule
+### security — 6 rules
 
 Patterns enabling injection, eval, prototype pollution, or unsafe deserialization.
 
 | Rule | Mode | Fixtures |
 |---|:-:|---:|
+| [`no-blank-target`](https://biomejs.dev/linter/rules/noBlankTarget) | AST-only | 2 / 2 |
+| [`no-dangerously-set-inner-html`](https://biomejs.dev/linter/rules/noDangerouslySetInnerHtml) | AST-only | 4 / 4 |
+| [`no-dangerously-set-inner-html-with-children`](https://biomejs.dev/linter/rules/noDangerouslySetInnerHtmlWithChildren) | AST-only | 2 / 2 |
+| [`no-global-eval`](https://biomejs.dev/linter/rules/noGlobalEval) | AST-only | 3 / 3 |
 | [`no-implied-eval`](https://typescript-eslint.io/rules/no-implied-eval) | type-aware | 70 / 70 |
+| [`no-secrets`](https://biomejs.dev/linter/rules/noSecrets) | AST-only | 2 / 2 |
 
-### performance — 5 rules
+### performance — 16 rules
 
 Known-slow patterns with a faster equivalent. No correctness impact.
 
 | Rule | Mode | Fixtures |
 |---|:-:|---:|
+| [`no-accumulating-spread`](https://biomejs.dev/linter/rules/noAccumulatingSpread) | AST-only | 28 / 28 |
 | [`no-await-in-loop`](https://eslint.org/docs/latest/rules/no-await-in-loop) | AST-only | 37 / 37 |
+| [`no-barrel-file`](https://biomejs.dev/linter/rules/noBarrelFile) | AST-only | 7 / 7 |
+| [`no-delete`](https://biomejs.dev/linter/rules/noDelete) | AST-only | 19 / 19 |
+| [`no-dynamic-namespace-import-access`](https://biomejs.dev/linter/rules/noDynamicNamespaceImportAccess) | AST-only | 2 / 2 |
+| [`no-img-element`](https://biomejs.dev/linter/rules/noImgElement) | AST-only | 2 / 2 |
+| [`no-namespace-import`](https://biomejs.dev/linter/rules/noNamespaceImport) | AST-only | 2 / 2 |
+| [`no-re-export-all`](https://biomejs.dev/linter/rules/noReExportAll) | AST-only | 3 / 3 |
+| [`no-unwanted-polyfillio`](https://biomejs.dev/linter/rules/noUnwantedPolyfillio) | AST-only | 3 / 3 |
 | [`prefer-find`](https://typescript-eslint.io/rules/prefer-find) | type-aware | 45 / 45 |
 | [`prefer-includes`](https://typescript-eslint.io/rules/prefer-includes) | type-aware | 42 / 42 |
 | [`prefer-regexp-exec`](https://typescript-eslint.io/rules/prefer-regexp-exec) | type-aware | 37 / 37 |
 | [`prefer-string-starts-ends-with`](https://typescript-eslint.io/rules/prefer-string-starts-ends-with) | type-aware | 123 / 123 |
+| [`use-google-font-preconnect`](https://biomejs.dev/linter/rules/useGoogleFontPreconnect) | AST-only | 2 / 2 |
+| [`use-solid-for-component`](https://biomejs.dev/linter/rules/useSolidForComponent) | AST-only | 2 / 2 |
+| [`use-top-level-regex`](https://biomejs.dev/linter/rules/useTopLevelRegex) | AST-only | 2 / 2 |
 
 ### complexity — 17 rules
 
@@ -280,7 +296,7 @@ go test -count=1 -run EslintCompatibility -v \
   ./internal/rules/<rule-package>/
 ```
 
-The aggregate validates all 166 rules against **10584 cases** in one
+The aggregate validates all 182 rules against **10669 cases** in one
 go. See [`docs/OXLINT-COMPAT-OVERVIEW.md`](https://github.com/jetlint/jetlint/blob/main/docs/OXLINT-COMPAT-OVERVIEW.md)
 for the AST-only fixture format and how to regenerate from a fresh
 oxc/biome checkout.
