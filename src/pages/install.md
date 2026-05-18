@@ -63,7 +63,7 @@ jetlint --project ./tsconfig.json
 ```
 
 By default, jetlint applies the **5 recommended rules** at `error` severity. The other
-**177 rules** ship `off`; see [Config](/config/) to opt in.
+**301 rules** ship `off`; see [Config](/config/) to opt in.
 
 ## Run as a daemon
 
