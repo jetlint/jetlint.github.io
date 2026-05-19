@@ -7,9 +7,9 @@ import Base from '../layouts/Base.astro';
     <div class="hero-eyebrow">jetlint · pre-1.0</div>
     <h1>Type-aware TypeScript&nbsp;7 linting.<br />Without the wait.</h1>
     <p class="hero-lead">
-      A fast, type-aware linter for the TypeScript&nbsp;7 native (Go) toolchain. Drop-in
-      compatible with typescript-eslint: the rules you already configure, reporting in
-      a fraction of the time.
+      A fast, type-aware linter for the TypeScript&nbsp;7 native (Go) toolchain.
+      Rule-compatible with typescript-eslint &mdash; the rule names and options you
+      already use, reporting in a fraction of the time.
     </p>
     <div class="hero-cta">
       <a class="btn btn-primary" href="/install/">Get started</a>
@@ -20,8 +20,8 @@ import Base from '../layouts/Base.astro';
   <div class="compat">
     <div class="compat-pct">100%</div>
     <p class="compat-text">
-      <strong>11396 / 11396 upstream fixtures pass</strong> across 306 rules
-      (61 typescript-eslint ports + 236 biome / oxlint ports), plus hand-written tests
+      <strong>11652 / 11652 upstream fixtures pass</strong> across 373 rules
+      (61 typescript-eslint ports + 303 biome / oxlint ports), plus hand-written tests
       for 9 ESLint-core rules without upstream fixture data.
       <small>Same diagnostics as the upstream tools, byte-for-byte against their published test suites.</small>
     </p>
@@ -32,11 +32,12 @@ import Base from '../layouts/Base.astro';
     <h2>Type-aware linting at native speed.</h2>
     <div class="features">
       <div class="feature">
-        <h3>Interactive speed</h3>
+        <h3>Fail-fast lints</h3>
         <p>
-          Re-lints reuse a warm TypeScript program. The first lint pays for the load;
-          every lint after that returns in milliseconds, fast enough to sit inside an
-          edit-feedback loop.
+          Use <code>--max-diagnostics N</code> to bail out of the lint walk after the
+          first N errors. On a real project, capping at 20 turns a 80&thinsp;s full
+          lint into a 0.4&thinsp;s answer for &ldquo;does this branch have any
+          violations?&rdquo;
         </p>
       </div>
       <div class="feature">
@@ -50,8 +51,8 @@ import Base from '../layouts/Base.astro';
         <h3>Faithful compatibility</h3>
         <p>
           Every rule is verified against upstream fixtures: 6193 typescript-eslint cases
-          and 5203 biome / oxlint cases, plus hand-written tests for 9 ESLint-core rules
-          without upstream fixtures. 100% match across all 306 rules. Switch over
+          and 5459 biome / oxlint cases, plus hand-written tests for 9 ESLint-core rules
+          without upstream fixtures. 100% match across all 373 rules. Switch over
           without re-learning your config.
         </p>
       </div>
@@ -80,14 +81,14 @@ import Base from '../layouts/Base.astro';
   </section>
 
   <div class="categories">
-    <p class="categories-heading">306 rules, organized into 8 categories.</p>
+    <p class="categories-heading">373 rules, organized into 8 categories.</p>
     <ul class="category-chips">
       <li class="category-chip">correctness <span class="category-chip-count">105</span></li>
       <li class="category-chip">suspicious <span class="category-chip-count">97</span></li>
-      <li class="category-chip">complexity <span class="category-chip-count">37</span></li>
+      <li class="category-chip">style <span class="category-chip-count">61</span></li>
+      <li class="category-chip">complexity <span class="category-chip-count">52</span></li>
       <li class="category-chip">a11y <span class="category-chip-count">36</span></li>
       <li class="category-chip">performance <span class="category-chip-count">16</span></li>
-      <li class="category-chip">style <span class="category-chip-count">9</span></li>
       <li class="category-chip">security <span class="category-chip-count">6</span></li>
       <li class="category-chip">nursery <span class="category-chip-count">0</span></li>
     </ul>
@@ -135,7 +136,8 @@ npx jetlint --project ./tsconfig.json`}</code></pre>
       in seconds-to-minutes, which is too slow to sit inside an inner loop. With the
       TypeScript&nbsp;7 native toolchain landing, the checker itself is finally fast enough
       that a thin linter on top can return type-aware diagnostics at interactive speed,
-      especially when a daemon keeps the program warm between runs.
+      and a <code>--max-diagnostics</code> bail-out turns the &ldquo;is anything broken?&rdquo;
+      question into a sub-second answer even on big projects.
     </p>
 
     <h2 style="margin-top:2rem">Standing on other peoples&apos; shoulders.</h2>
@@ -144,7 +146,8 @@ npx jetlint --project ./tsconfig.json`}</code></pre>
       problems (what the rules should mean, how the checker should answer type queries,
       how a linter should be structured) have already been solved well elsewhere.
       jetlint&apos;s contribution is wiring them together for the TS&nbsp;7 native checker
-      with a daemon in front.
+      and exposing the ergonomic switches (fast bail-out, predictable config) that make
+      it useful in an inner loop.
     </p>
     <ul>
       <li>
