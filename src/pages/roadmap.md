@@ -30,7 +30,7 @@ from correctness.
 ### [suspicious](https://github.com/jetlint/jetlint/milestone/2)
 
 Code that smells. Usually wrong, occasionally intentional. The author
-should justify or fix. Default severity is `warn`.
+should justify or fix. Default severity is `warning`.
 
 ### [security](https://github.com/jetlint/jetlint/milestone/3)
 
