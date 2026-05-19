@@ -75,6 +75,32 @@ project/
 jetlint resolves files using your `tsconfig.json`'s `include` / `exclude`.
 Pass `--project ./tsconfig.json` to point at a specific config file.
 
+## Ignoring files
+
+`ignorePatterns` is a list of gitignore-flavored doublestar globs that
+suppress diagnostics for matching files. Matched files stay part of the
+TypeScript program — their type information is still available to
+importers — only diagnostic emission is suppressed.
+
+```json
+{
+  "ignorePatterns": [
+    "**/generated/**",
+    "packages/*/lib/**/*.gen.ts",
+    "!packages/keep/lib/api/keep.gen.ts"
+  ]
+}
+```
+
+- A leading `!` un-ignores.
+- Patterns resolve relative to the directory of the `.jetlintrc.json`
+  that contains them.
+- In a multi-config cascade, negation patterns from inner configs apply
+  across the cascade so a child can subtract from a parent's positive
+  ignore.
+
+Available from `@jetlint/cli@0.1.6`.
+
 ## Editor and CI configs
 
 The same `.jetlintrc.json` is used everywhere. For CI-specific overrides
